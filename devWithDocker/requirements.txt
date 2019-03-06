@@ -1,0 +1,7 @@
+tqdm
+tensorflow
+keras
+flask
+gevent
+requests
+pillow
