@@ -1,5 +1,10 @@
 # Deploy a model server
 
+## Prerequisites:
+
+* A [Docker Hub](https://hub.docker.com/) account.
+* An [Amazon Web Services](https://aws.amazon.com/) account.
+* [Terraform]() installed.
 
 1. Build the `model_server` docker image: `docker build`.
 2. Push the `model_server` docker image to your public dockerhub account: `docker push`.

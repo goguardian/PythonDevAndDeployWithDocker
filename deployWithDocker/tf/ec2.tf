@@ -1,6 +1,6 @@
 # AMI: Ubuntu with Docker installed
 data "aws_ami" "ubuntu" {
-    
+    #needs to have docker
 }
 
 # EC2 instance
