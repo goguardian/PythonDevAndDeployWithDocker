@@ -2,9 +2,7 @@ FROM python:3.7.2
 
 RUN pip install tensorflow \
     keras \
-    flask \
-    gevent \
-    requests \
+    falcon \
     pillow
 
 WORKDIR /model_server/

@@ -1,50 +1,65 @@
-from keras.applications import ResNet50
-from keras.preprocessing.image import img_to_array
-from keras.applications import imagenet_utils
-from PIL import Image
+import os
+import base64
+import json
+import falcon
 import numpy as np
-from flask import Flask, request, jsonify
 from io import BytesIO
+from PIL import Image, ImageOps
 
-PORT='5000'
-HOSTNAME='0.0.0.0'
+from keras.models import load_model
 
-class PredictorServer:
-    
-    app = Flask(__name__)
 
+def convert_image(image):
+    img = Image.open(image).convert('L')
+    inverted_img = ImageOps.invert(img)
+    data = np.asarray(inverted_img, dtype='int32')
+    rescaled_data = (data / 255).reshape(1, 28, 28, 1)
+    return rescaled_data
+
+class HealthResource():
     def __init__(self):
-        self.model = ResNet50(weights='imagenet')
-
-    @app.route('/health')
-    def health():
-        return 'ok'
+        pass
     
-    @app.route('/predict', methods=['POST'])
-    def predict():
-        data = {'success': False}
-        if request.method == 'POST' and request.files.get('image'):
-            image = request.files['image'].read()
-            image = Image.open(BytesIO(image))
-            if image.mode != 'RGB':
-                image = image.convert('RGB')
-            image = image.resize((224, 224))
-            image = img_to_array(image)
-            image = np.expand_dims(image, axis=0)
-            image = imagenet_utils.preprocess_input(image)
+    def on_get(self, req, resp):
+        resp.status = falcon.HTTP_200
+        resp.body = 'I\'m alive.'
 
-            preds = self.model.predict(image)
-            results = imagenet_utils.decode_predictions(preds)
-            data["predictions"] = [
-                {
-                    'label': label,
-                    'probability': float(prob)
-                }
-                for _, label, prob in results[0]
-            ]
-            data['success'] = True
-        return jsonify(data)
+class PredictResource():
 
-if __name__ == '__main__':
-    predictorServer = PredictorServer()
-    predictorServer.app.run(HOSTNAME, PORT)
+    def __init__(self, model):
+        self.model = model
+
+    def on_get(self, req, resp):
+        resp.status = falcon.HTTP_200
+        resp.body = 'Hello World!'
+
+    def on_post(self, req, resp):
+        """
+        (echo -n '{"image": "'; four_test.png; echo '"}') |
+        curl -H "Content-Type: application/json" -d @-  http://127.0.0.1:8000/predict
+        """
+        image = json.loads(req.stream.read())
+        decoded_image = base64.b64decode(image.get('image'))
+        data = convert_image(BytesIO(decoded_image))
+        predicted_data = self.model.predict_classes(data)[0]
+
+        output = {'prediction': str(predicted_data)}
+        resp.status = falcon.HTTP_200
+        resp.body = json.dumps(output, ensure_ascii=False)
+
+
+
+def load_trained_model():
+    global model
+    model = load_model(os.path.join(os.path.dirname(__file__), 'model/cnn_model.h5'))
+    model._make_predict_function()
+    return model
+
+# Instantiation resources
+healthResource = HealthResource()
+predictResource = PredictResource(model = load_trained_model())
+
+# Create API and attach resources to endpoints
+api = application = falcon.API()
+api.add_route('/health', healthResource)
+api.add_route('/predict', predictResource)

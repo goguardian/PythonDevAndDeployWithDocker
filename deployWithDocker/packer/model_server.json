@@ -1,0 +1,17 @@
+{
+    "builders": [{
+        "ami_name": "model_server",
+        "instance_type": "t2.micro",
+        "region": "us-west-2",
+        "type": "amazon-ebs",
+        "source-ami": "INSERT HERE",
+        "ssh_username": "ubuntu"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "sudo apt-get update",
+            "sudo apt-get docker"
+        ]
+    }]
+}
