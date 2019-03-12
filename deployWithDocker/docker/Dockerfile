@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y nginx
 RUN pip install tensorflow \
     keras \
     falcon \
+    falcon-multipart \
     gunicorn \
     pillow
 
