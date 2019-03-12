@@ -46,18 +46,15 @@ class PredictResource():
         resp.body = json.dumps(output, ensure_ascii=False)
 
 
+# Load Model
+mnistModel = load_model('model.h5')
+mnistModel._make_predict_function()
 
-def load_trained_model():
-    global model
-    model = load_model(os.path.join(os.path.dirname(__file__), 'model/cnn_model.h5'))
-    model._make_predict_function()
-    return model
-
-# Instantiation resources
+# Create Resources for API
 healthResource = HealthResource()
-predictResource = PredictResource(model = load_trained_model())
+predictResource = PredictResource(mnistModel)
 
 # Create API and attach resources to endpoints
-api = application = falcon.API()
+api = falcon.API()
 api.add_route('/health', healthResource)
 api.add_route('/predict', predictResource)

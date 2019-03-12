@@ -6,7 +6,7 @@
 #
 
 docker run \
-    -p 8000:8000 \
+    -p 8081:8081 \
     --rm \
     --name model_server_container \
     model_server:latest
