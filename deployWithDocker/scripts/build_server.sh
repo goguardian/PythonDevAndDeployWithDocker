@@ -5,4 +5,4 @@
 # USAGE 
 #
 
-cd .. && docker build
+docker build -t model_server:latest ../docker

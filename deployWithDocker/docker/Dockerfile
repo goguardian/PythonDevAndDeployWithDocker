@@ -1,12 +1,18 @@
-FROM python:3.7.2
+FROM python:3.7.1
+
+RUN apt-get update && apt-get install -y nginx
 
 RUN pip install tensorflow \
     keras \
     falcon \
+    gunicorn \
     pillow
 
 WORKDIR /model_server/
 
 COPY . .
 
-CMD python model_server.py
+RUN cp ./nginx.conf /etc/nginx/conf.d/
+
+CMD service nginx restart && \
+    gunicorn -b 0.0.0.0:5000 model_server:api

@@ -1,16 +1,38 @@
-# AMI: Ubuntu with Docker installed
-data "aws_ami" "ubuntu" {
-    #needs to have docker
+variable "docker_tag" {
+    type = "string"
+    description = "Tag of docker image containing model server"
 }
 
-# EC2 instance
-resource "aws_instance" "web" {
-    ami = "${data.aws_ami.ubuntu.id}"
-    instance_type = "t2.micro"
-    vpc_security_group_ids = ["${aws_security_group.instance.id}"]
+variable "docker_ami" {
+    type = "string"
+    description = "ID of AMI with Docker installed"
+}
+
+resource "aws_security_group" "model_server_security_group" {
+    name = "model_server_security_group"
+
+    ingress {
+        from_port = 8081
+        to_port = 8081
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    egress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+resource "aws_instance" "model_server" {
+    ami = "${var.docker_ami}"
+    instance_type = "t2.medium"
+    vpc_security_group_ids = ["${aws_security_group.model_server_security_group.id}"]
     user_data = <<-EOF
-        #!/usr/bin/env bash
-        docker run lgjohnson/model_server:latest
+        #!/bin/bash
+        sudo docker run -p 8081:8081 "${var.docker_tag}"
         EOF
 
     tags = {
@@ -18,14 +40,7 @@ resource "aws_instance" "web" {
     }
 }
 
-# Security group to allow incoming traffic
-resource "aws_security_group" "instance" {
-    name = "model_server_security_group"
-
-    ingress {
-        from_port = 8080
-        to_port = 8080
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+output "instance_ip_address" {
+    value = "${aws_instance.model_server.public_ip}"
+    description = "The public IP address of the model server"
 }
