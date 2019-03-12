@@ -1,6 +1,3 @@
-from __future__ import print_function
-import sys
-
 import os
 import io
 import json
@@ -11,6 +8,9 @@ from PIL import Image
 from keras.models import load_model
 
 class HealthResource():
+    """
+    A resource that provides a health check for the model server
+    """
     def __init__(self):
         pass
     
@@ -22,7 +22,9 @@ class HealthResource():
         resp.body = 'I\'m alive.'
 
 class PredictResource():
-
+    """
+    A resource that provides prediction service
+    """
     def __init__(self, model):
         self.model = model
 
@@ -33,7 +35,6 @@ class PredictResource():
         image = req.get_param('image')
         img_bytes = image.file.read()
         img = Image.open(io.BytesIO(img_bytes))
-        #img = ImageOps.invert(img)
         data = np.asarray(img, dtype='int32')
         data = (data / 255).reshape(1, 28, 28, 1)
         predicted_data = self.model.predict_classes(data)[0]
@@ -51,12 +52,11 @@ mnistModel._make_predict_function()
 healthResource = HealthResource()
 predictResource = PredictResource(mnistModel)
 
-# Create API and attach resources to endpoints
+# Create API and attach resources to endpoints; we attach middleware to allow Falcon to handle POST-ed image files
 api = falcon.API(
     middleware = [
         MultipartMiddleware()
     ]
 )
-api.req_options
 api.add_route('/health', healthResource)
 api.add_route('/predict', predictResource)
