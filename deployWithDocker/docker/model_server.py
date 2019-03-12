@@ -1,22 +1,16 @@
 import os
-import base64
+import io
 import json
 import falcon
+from falcon_multipart.middleware import MultipartMiddleware
 import numpy as np
-from io import BytesIO
-from PIL import Image, ImageOps
-
+from PIL import Image
 from keras.models import load_model
 
-
-def convert_image(image):
-    img = Image.open(image).convert('L')
-    inverted_img = ImageOps.invert(img)
-    data = np.asarray(inverted_img, dtype='int32')
-    rescaled_data = (data / 255).reshape(1, 28, 28, 1)
-    return rescaled_data
-
 class HealthResource():
+    """
+    A resource that provides a health check for the model server
+    """
     def __init__(self):
         pass
     
@@ -28,7 +22,9 @@ class HealthResource():
         resp.body = 'I\'m alive.'
 
 class PredictResource():
-
+    """
+    A resource that provides prediction service
+    """
     def __init__(self, model):
         self.model = model
 
@@ -36,9 +32,11 @@ class PredictResource():
         """
         Prediction resource receives a POST request with an image payload and returns a prediction.
         """
-        image = json.loads(req.stream.read())
-        decoded_image = base64.b64decode(image.get('image'))
-        data = convert_image(BytesIO(decoded_image))
+        image = req.get_param('image')
+        img_bytes = image.file.read()
+        img = Image.open(io.BytesIO(img_bytes))
+        data = np.asarray(img, dtype='int32')
+        data = (data / 255).reshape(1, 28, 28, 1)
         predicted_data = self.model.predict_classes(data)[0]
 
         output = {'prediction': str(predicted_data)}
@@ -54,7 +52,11 @@ mnistModel._make_predict_function()
 healthResource = HealthResource()
 predictResource = PredictResource(mnistModel)
 
-# Create API and attach resources to endpoints
-api = falcon.API()
+# Create API and attach resources to endpoints; we attach middleware to allow Falcon to handle POST-ed image files
+api = falcon.API(
+    middleware = [
+        MultipartMiddleware()
+    ]
+)
 api.add_route('/health', healthResource)
 api.add_route('/predict', predictResource)
