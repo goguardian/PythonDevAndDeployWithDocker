@@ -11,13 +11,18 @@
 
 1. Open terminal and `cd` your bash process to `PythonDevAndDeploymentWithDocker/deployWithDocker`.
 2. Move the `model.h5` file into the folder `docker` (so that the docker daemon has access to it when building our `model_server` docker image).
-3. Build the `model_server` docker image; make sure to include your dockerhub account as a prefix: e.g. `docker build -t lgjohnson/model_server docker/`.
+3. Build the `model_server` docker image, making sure to include your dockerhub account as a prefix e.g. `docker build -t lgjohnson/model_server docker/`.
 4. Push the `model_server` docker image to your public dockerhub account: e.g. `docker push lgjohnson/model_server`.
-5. Initiate terraform: `terraform init`.
-6. Check the terraform plan: `terraform plan`.
-7. Execute the plan with: `terraform apply`. When asked for `docker_ami`, enter `ami-025e0be861ac07f91` and when asked for `docker_tag`, enter the tag specified in step 2 e.g. `lgjohnson/model_server`.
+5. Initiate terraform: `terraform init tf/`.
+6. Check the terraform plan: `terraform plan tf/`.
+7. Execute the plan with: `terraform apply tf/`. When asked for `docker_ami`, enter `ami-025e0be861ac07f91` and when asked for `docker_tag`, enter the tag specified in step 2 e.g. `lgjohnson/model_server`.
 8. Check if the model server is running at the returned public IP address: e.g. my IP address was `54.185.153.142` so I ran `curl http://54.185.153.142:8081/health`.
 9. Classify a picture of a digit: e.g. `curl -F "image=@images/img_1.jpg" http://localhost:8081/predict`
+
+## Clean-up
+
+1. Remove AWS infrastrucure: `terraform destroy tf/`.
+2. 
 
 ## Bonus: Create the AMI
 
