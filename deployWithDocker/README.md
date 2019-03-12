@@ -10,11 +10,11 @@
 ## Deploy an MNIST Model Server
 
 1. Move the `model.h5` file into the folder `docker` (so that the docker daemon has access to it when building our `model_server` image).
-2. Build the `model_server` docker image; make sure to include your dockerhub account as a prefix: `docker build -t lgjohnson/model_server` 
-3. Push the `model_server` docker image to your public dockerhub account: `docker push lgjohnson/model_server`.
+2. Build the `model_server` docker image; make sure to include your dockerhub account as a prefix: e.g. `docker build -t lgjohnson/model_server` 
+3. Push the `model_server` docker image to your public dockerhub account: e.g. `docker push lgjohnson/model_server`.
 4. Initiate terraform: `terraform init`.
 5. Check the terraform plan: `terraform plan`.
-6. Execute the plan, supplying the dockerhub URI when prompted: `terraform make`.
+6. Execute the plan with: `terraform make`; when asked for `docker_ami`, enter `ami-025e0be861ac07f91`; when asked for `docker_tag`, enter the tag specified in step 2.
 7. Ping the server at the returned IP address.
 
 ## Troubleshooting
