@@ -2,6 +2,7 @@
 
 ## Prerequisites
 
+* [Docker]([https://docs.docker.com/install/](https://www.docker.com/)) installed. Instructions [here](https://docs.docker.com/install/).
 * A [Docker Hub](https://hub.docker.com/) account. Sign-up [here](https://hub.docker.com/signup).
 * An [Amazon Web Services](https://aws.amazon.com/) account. Sign-up [here](https://portal.aws.amazon.com/billing/signup#/start).
 * [Terraform](https://www.terraform.io/) installed. Instructions [here](https://learn.hashicorp.com/terraform/getting-started/install).
@@ -11,18 +12,20 @@
 
 1. Open terminal and `cd` your bash process to `PythonDevAndDeploymentWithDocker/deployWithDocker`.
 2. Move the `model.h5` file into the folder `docker` (so that the docker daemon has access to it when building our `model_server` docker image).
-3. Build the `model_server` docker image, making sure to include your dockerhub account as a prefix e.g. `docker build -t lgjohnson/model_server docker/`.
-4. Push the `model_server` docker image to your public dockerhub account: e.g. `docker push lgjohnson/model_server`.
+3. Build the `model_server` docker image, making sure to include your dockerhub account as a prefix e.g. `docker build -t <dockerhub_account>/model_server docker/`.
+4. Push the `model_server` docker image to your public dockerhub account: e.g. `docker push <dockerhub_account>/model_server`.
 5. Initiate terraform: `terraform init tf/`.
 6. Check the terraform plan: `terraform plan tf/`.
-7. Execute the plan with: `terraform apply tf/`. When asked for `docker_ami`, enter `ami-025e0be861ac07f91` and when asked for `docker_tag`, enter the tag specified in step 2 e.g. `lgjohnson/model_server`.
+7. Execute the plan with: `terraform apply tf/`. When asked for `docker_ami`, enter `ami-025e0be861ac07f91` and when asked for `docker_tag`, enter the tag specified in step 2 e.g. `<dockerhub_account>/model_server`.
 8. Check if the model server is running at the returned public IP address: e.g. my IP address was `54.185.153.142` so I ran `curl http://54.185.153.142:8081/health`.
-9. Classify a picture of a digit: e.g. `curl -F "image=@images/img_1.jpg" http://localhost:8081/predict`
+9. Classify a picture of a digit: e.g. `curl -F "image=@images/img_1.jpg" http://54.185.153.142:8081/predict`
 
 ## Clean-up
 
 1. Remove AWS infrastrucure: `terraform destroy tf/`.
-2. 
+2. Clean up Docker artifacts.
+3. Remove Docker image (optional).
+4. Remove the MNIST model (optional).
 
 ## Bonus: Create the AMI
 
