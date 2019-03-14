@@ -1,0 +1,21 @@
+{
+    "builders": [{
+        "ami_name": "model_server",
+        "instance_type": "t2.medium",
+        "region": "us-west-2",
+        "type": "amazon-ebs",
+        "source_ami": "ami-005bdb005fb00e791",
+        "ssh_username": "ubuntu"
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "sudo apt-get update",
+            "sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common",
+            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
+            "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
+            "sudo apt-get update",
+            "sudo apt-get install -y docker-ce"
+        ]
+    }]
+}
