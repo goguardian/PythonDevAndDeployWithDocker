@@ -10,3 +10,4 @@ flask
 gevent
 requests
 pillow
+pandas

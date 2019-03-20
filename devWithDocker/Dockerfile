@@ -1,5 +1,7 @@
 FROM library/ubuntu:18.04
 
+ENV SHELL=/bin/bash
+
 RUN apt-get update && \
     apt-get install -y vim \
                     emacs \

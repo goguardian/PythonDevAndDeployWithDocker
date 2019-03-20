@@ -8,7 +8,7 @@
 3. From this folder in the repo, run `docker-compose up --build -d`.
   * If you _don't_ want to rebuild the image, you can simply use `docker-compose up -d` after the build is complete.
 4. Run `. listjupyterservers.sh` to get links to the jupyter lab server.
-5. When you're done, run `docker-compose donwn -v` from this folder.
+5. When you're done, run `docker-compose donwn -v` from this folder to stop and remove the docker container.
 
 ### Customizing the resources here:
 
