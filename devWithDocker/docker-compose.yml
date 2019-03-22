@@ -5,7 +5,7 @@ services:
             context: .
         image: dockerjupyter
         volumes:
-            - ./:/home/jovyan/work
+            - ../:/root/work
         ports:
             - 8888:8888
             
