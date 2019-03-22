@@ -11,3 +11,5 @@ gevent
 requests
 pillow
 pandas
+matplotlib
+
