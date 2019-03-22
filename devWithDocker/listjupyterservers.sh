@@ -1,4 +1,2 @@
-#!/usr/bin/bash
-for id in $(docker ps -aq); do
-    echo $(docker exec $id jupyter notebook list)
-done
+#!/bin/sh
+echo $(docker exec devwithdocker_jupyter_1 jupyter notebook list)
