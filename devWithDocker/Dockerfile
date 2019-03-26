@@ -1,5 +1,5 @@
 # Build this image on a brand spankin' new Ubuntu 18.04 system
-FROM library/ubuntu:18.04
+FROM python:3.7.1
 
 # Make the default shell bash
 ENV SHELL=/bin/bash
@@ -11,8 +11,6 @@ RUN apt-get update && \
                     nano \
                     wget \
                     curl \
-                    python3 \
-                    python3-pip \
                     sudo
 
 
