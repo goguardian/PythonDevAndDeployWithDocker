@@ -9,3 +9,5 @@
 .local
 .sudo_as_admin_successful
 .python-version
+.keras
+.cache
