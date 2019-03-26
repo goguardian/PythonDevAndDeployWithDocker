@@ -3,3 +3,9 @@
 .DS_Store
 .terraform
 *.tfstate*
+.Trash-1001
+.ipython
+.jupyter
+.local
+.sudo_as_admin_successful
+.python-version
