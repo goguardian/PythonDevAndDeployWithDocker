@@ -9,8 +9,12 @@ RUN apt-get update && \
     apt-get install -y vim \
                     emacs \
                     nano \
+                    wget \
+                    curl \
                     python3 \
-                    python3-pip
+                    python3-pip \
+                    sudo
+
 
 # Upgade pip
 RUN pip3 install --upgrade pip
@@ -21,8 +25,14 @@ COPY requirements.txt /home/requirements.txt
 # Install the requirements.txt
 RUN pip3 install -r /home/requirements.txt
 
-# Set the workdir to the root folder
-WORKDIR /root
+# Create the dev user
+RUN useradd -m dev && echo "dev:dev" | chpasswd && adduser dev sudo
+
+# Change the workdir to /home/dev
+WORKDIR /home/dev
+
+# Make the user dev
+USER dev
 
 # Run the app we want to run. In this case, jupyter lab.
-CMD jupyter lab --ip=0.0.0.0 --allow-root
+CMD jupyter lab --ip=0.0.0.0
