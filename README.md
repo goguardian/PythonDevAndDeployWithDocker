@@ -28,5 +28,5 @@ You should now be building a docker image! If any of these steps fail, especiall
 * [**Docker documentation**](https://docs.docker.com/)
 * [**tf.Keras**](https://www.tensorflow.org/guide/keras), the API we used to develop our ML model
 * [**Jupyter Lab Documentation**](https://jupyterlab.readthedocs.io/en/stable/)
-* [**Theia IDE**](https://github.com/theia-ide/theia-apps), an alternative to developing in Jupyter that's closer to VSCode
+* [**Theia IDE**](https://github.com/theia-ide/theia), an alternative to developing in Jupyter that's closer to VSCode
 
