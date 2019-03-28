@@ -19,7 +19,7 @@ $ cd PythonDevAndDeployWithDocker/devWithDocker
 $ docker-compose up -d
 ```
 
-You should now be building a docker image! If this fails, it's likely because many of us are pulling over the same network. Try again in a few minutes!
+You should now be building a docker image! If any of these steps fail, especially the `docker pull`, try again in a few minutes!
 
 ## Additional Resources:
 
