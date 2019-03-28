@@ -15,7 +15,7 @@ To deploy on an AWS EC2:
 
 1. Open terminal and `cd` your bash process to `PythonDevAndDeploymentWithDocker/deployWithDocker`.
 2. Build the `model_server` docker image: `docker build -t model_server docker/`.
-3. Deploy the model server by running the docker image locally: `docker run -p 8081:8081 docker/`.
+3. Deploy the model server by running the docker image locally: `docker run -p 8081:8081 model_server`.
 4. Check the health of the model server is running: `curl localhost:8081/health`.
 5. Classify a picture of a digit: `curl -F "image=@images/img_1.jpg" localhost:8081/predict`.
 
