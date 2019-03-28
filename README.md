@@ -9,7 +9,7 @@ In this repo are resources to build your own development environment and deploy 
 ## Getting Started:
 
 1. [**Install Docker CE**](https://www.docker.com/get-started)
-2. **(Optional)** Create a [**Docker Hub**](hub.docker.com) account and log in to Docker on your machine through the GUI or with `docker login`
+2. **(Optional)** Create a [**Docker Hub**](https://hub.docker.com) account and log in to Docker on your machine through the GUI or with `docker login`
 3. Run the following commands:
 
 ```
