@@ -1,4 +1,4 @@
-# Build this image on a brand spankin' new Ubuntu 18.04 system
+# Build this image on a Python 3.7.1 image
 FROM python:3.7.1
 
 # Make the default shell bash
