@@ -30,4 +30,8 @@ You should now be building a docker image! If any of these steps fail, especiall
 * [**tf.Keras**](https://www.tensorflow.org/guide/keras), the API we used to develop our ML model
 * [**Jupyter Lab Documentation**](https://jupyterlab.readthedocs.io/en/stable/)
 * [**Theia IDE**](https://github.com/theia-ide/theia), an alternative to developing in Jupyter that's closer to VSCode
+* [**Get started with NGINX**](http://nginx.org/en/docs/beginners_guide.html)
+* [**Gunicorun documentation**](https://gunicorn.org/#docs)
+* [**Falcon documentation**](https://falcon.readthedocs.io/en/stable/)
+* [**Guide to Terraform and AWS**](https://learn.hashicorp.com/terraform/?track=getting-started#getting-started)
 
