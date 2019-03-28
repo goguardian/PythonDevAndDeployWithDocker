@@ -9,6 +9,7 @@
 To deploy on an AWS EC2:
 
 * An [Amazon Web Services](https://aws.amazon.com/) account. Sign-up [here](https://portal.aws.amazon.com/billing/signup#/start).
+* AWS credentials in `~/.aws./credentials`. See [here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) for instructions.
 * [Terraform](https://www.terraform.io/) installed. Instructions [here](https://learn.hashicorp.com/terraform/getting-started/install).
 
 ## Deploy an MNIST Model Server Locally
