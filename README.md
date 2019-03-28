@@ -17,7 +17,7 @@ In this repo are resources to build your own development environment and deploy 
 $ git clone https://github.com/goguardian/PythonDevAndDeployWithDocker.git
 $ docker pull python:3.7.1
 $ cd PythonDevAndDeployWithDocker/devWithDocker
-$ docker-compose up -d
+$ docker-compose build
 ```
 
 You should now be building a docker image! If any of these steps fail, especially the `docker pull`, try again in a few minutes!
