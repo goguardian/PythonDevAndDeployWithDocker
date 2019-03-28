@@ -9,8 +9,9 @@ In this repo are resources to build your own development environment and deploy 
 ## Getting Started:
 
 1. [**Install Docker CE**](https://www.docker.com/get-started)
-2. **(Optional)** Create a [**Docker Hub**](https://hub.docker.com) account and log in to Docker on your machine through the GUI or with `docker login`
-3. Run the following commands:
+2. **Stop any processes** you have running on ports `8888` or `8081`
+3. **(Optional)** Create a [**Docker Hub**](https://hub.docker.com) account and log in to Docker on your machine through the GUI or with `docker login`
+4. Run the following commands:
 
 ```
 $ git clone https://github.com/goguardian/PythonDevAndDeployWithDocker.git
