@@ -6,11 +6,12 @@
 ### Steps:
 
 1. [Install Docker](https://docs.docker.com/docker-for-mac/)
-2. Create a [docker hub](hub.docker.com) account (not necessary for this demo)
-3. From this folder in the repo, run `docker-compose up --build -d`.
-  * If you _don't_ want to rebuild the image, you can simply use `docker-compose up -d` after the build is complete.
-4. Run `. listjupyterservers.sh` to get links to the jupyter lab server. 
-5. When you're done, run `docker-compose donwn -v` from this folder to stop and remove the docker container.
+2. From the `devWithDocker` directory in the repo, run "`docker-compose up -d`".
+  * If you make changes to the Dockerfile and want to rebuild the image, you can simply use `docker-compose up --build -d` to rebuild and run the image.
+3. Run "`. listjupyterservers.sh`" to get a link to the jupyter lab server.
+  * If that doesn't work, run "`docker exec devwithdocker_jupyter_1 jupyter notebook list`", and the link should print out! 
+  * Click the link, or copy and paste into your browser. Jupyter lab should open!
+4. When you're done, run "`docker-compose donwn -v`" from this directory to stop and remove the docker container.
 
 ### Customizing the resources here:
 

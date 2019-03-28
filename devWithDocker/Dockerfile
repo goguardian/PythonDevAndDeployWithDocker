@@ -15,13 +15,13 @@ RUN apt-get update && \
 
 
 # Upgade pip
-RUN pip3 install --upgrade pip
+RUN pip install --upgrade pip
 
 # Copy requirements.txt in so that pip can access it
 COPY requirements.txt /home/requirements.txt
 
 # Install the requirements.txt
-RUN pip3 install -r /home/requirements.txt
+RUN pip install -r /home/requirements.txt
 
 # Create the dev user
 RUN useradd -m dev && echo "dev:dev" | chpasswd && adduser dev sudo
