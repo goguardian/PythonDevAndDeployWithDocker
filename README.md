@@ -6,6 +6,11 @@
 This repo is for the SoCal Python Meetup at GoGuardian, on Thursday, 3/28/2019.
 In this repo are resources to build your own development environment and deploy a toy machine learning model using Docker!
 
+## Presentation Slides:
+
+* [Develop with Docker](devWithDocker/Slides.pdf)
+* [Deploy with Docker](deployWithDocker/Slides.pdf)
+
 ## Getting Started:
 
 1. [**Install Docker CE**](https://www.docker.com/get-started)
